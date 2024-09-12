@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>折扣計算器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label {
+            display: block; /* 讓標籤獨佔一行 */
+            margin: 10px 0 5px;
+        }
+        input, button {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>全家優惠計算器</h1>
+
+    <div>
+        <h2>商品1</h2>
+        <label for="price1">價格:
+        <input type="number" id="price1" placeholder="輸入價格">
+        
+            <input type="checkbox" id="buyOneGetOne1"> 買一送一
+        
+            <input type="checkbox" id="seventyPercent1"> 七折
+        </label>
+    </div>
+
+    <div>
+        <h2>商品2</h2>
+        <label for="price2">價格:
+        <input type="number" id="price2" placeholder="輸入價格">
+        
+            <input type="checkbox" id="buyOneGetOne2"> 買一送一
+            <input type="checkbox" id="seventyPercent2"> 七折
+        </label>
+    </div>
+
+    <div>
+        <h2>商品3</h2>
+        <label for="price3">價格:
+        <input type="number" id="price3" placeholder="輸入價格">
+       
+            <input type="checkbox" id="buyOneGetOne3"> 買一送一
+        
+            <input type="checkbox" id="seventyPercent3"> 七折
+        </label>
+    </div>
+
+    <div>
+        <h2>商品4</h2>
+        <label for="price4">價格:
+        <input type="number" id="price4" placeholder="輸入價格">
+        
+            <input type="checkbox" id="buyOneGetOne4"> 買一送一
+        
+            <input type="checkbox" id="seventyPercent4"> 七折
+        </label>
+    </div>
+
+    <button onclick="calculateTotal()">計算總金額</button>
+    <h2 id="finalAmount">最終金額: $0</h2>
+    <h2 id="finalDiscountAmount">晚餐補助後金額: $0</h2>
+
+    <script>
+        function calculateTotal() {
+            let total = 0;
+            //let total1 = 0;
+
+            for (let i = 1; i <= 4; i++) {
+                let price = parseFloat(document.getElementById('price' + i).value) || 0;
+                let isBuyOneGetOne = document.getElementById('buyOneGetOne' + i).checked;
+                let isSeventyPercent = document.getElementById('seventyPercent' + i).checked;
+
+                if (isBuyOneGetOne) {
+                    // 如果選擇了買一送一或七折，直接使用原價
+                    total += price;
+                } else if(isSeventyPercent){
+                    total += price*0.7;
+                }else {
+                    // 否則適用九折
+                    total += price * 0.9;
+                }
+            }
+
+            //total1 = total- 50; // 扣掉50元
+            //total = Math.max(total, 0); // 確保金額不小於0
+            document.getElementById('finalAmount').innerText = '最終金額: $' + total;
+            total -= 50;
+            document.getElementById('finalDiscountAmount').innerText = '晚餐補助後金額: $' + total;
+
+        }
+    </script>
+</body>
+</html>
